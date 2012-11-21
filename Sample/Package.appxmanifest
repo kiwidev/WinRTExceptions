@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="63b10b10-6402-4028-81e8-b377f0add0d1" Publisher="CN=MarkY" Version="1.0.0.0" />
+  <Properties>
+    <DisplayName>WinRTExceptions</DisplayName>
+    <PublisherDisplayName>MarkY</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.2.1</OSMinVersion>
+    <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="WinRTExceptions.Sample.App">
+      <VisualElements DisplayName="WinRTExceptions.Sample" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Sample project demonstration use of WinRTExceptions global handling" ForegroundText="light" BackgroundColor="#464646">
+        <DefaultTile ShowName="allLogos" />
+        <SplashScreen Image="Assets\SplashScreen.png" />
+      </VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>
