@@ -1,4 +1,6 @@
 WinRTExceptions
 ===============
 
-Global exception handling routine for WinRT applications
+Global exception handling routine for WinRT applications.  This addresses the inability to globally catch exceptions thrown from async void methods.
+
+See http://www.developer.geek.nz/2012/11/21/CatchingUnhandledExceptionsInWindowsStoreApps.aspx for details and explanation.
