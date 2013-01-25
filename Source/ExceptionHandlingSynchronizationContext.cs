@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Threading;
+using Windows.UI.Xaml.Controls;
 
 namespace WinRTExceptions
 {
@@ -58,6 +59,48 @@ namespace WinRTExceptions
 
 
             return customSynchronizationContext;
+        }
+
+        /// <summary>
+        /// Links the synchronization context to the specified frame
+        /// and ensures that it is still in use after each navigation event
+        /// </summary>
+        /// <param name="rootFrame"></param>
+        /// <returns></returns>
+        public static ExceptionHandlingSynchronizationContext RegisterForFrame(Frame rootFrame)
+        {
+            if (rootFrame == null)
+                throw new ArgumentNullException("rootFrame");
+
+            var synchronizationContext = Register();
+
+            rootFrame.Navigated += (sender, args) =>
+            {
+                Page newView = args.Content as Page;
+                if (newView != null)
+                {
+
+                    EventHandler<object> layoutUpdatedHandler = null;
+                    layoutUpdatedHandler =
+                        delegate
+                        {
+                            newView.LayoutUpdated -= layoutUpdatedHandler;
+
+                            EnsureContext(synchronizationContext);
+                        };
+
+                    newView.LayoutUpdated += layoutUpdatedHandler;
+                }
+
+            };
+
+            return synchronizationContext;
+        }
+
+        private static void EnsureContext(SynchronizationContext context)
+        {
+            if (Current != context)
+                SetSynchronizationContext(context);
         }
 
 
