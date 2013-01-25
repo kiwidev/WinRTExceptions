@@ -74,25 +74,8 @@ namespace WinRTExceptions
 
             var synchronizationContext = Register();
 
-            rootFrame.Navigated += (sender, args) =>
-            {
-                Page newView = args.Content as Page;
-                if (newView != null)
-                {
-
-                    EventHandler<object> layoutUpdatedHandler = null;
-                    layoutUpdatedHandler =
-                        delegate
-                        {
-                            newView.LayoutUpdated -= layoutUpdatedHandler;
-
-                            EnsureContext(synchronizationContext);
-                        };
-
-                    newView.LayoutUpdated += layoutUpdatedHandler;
-                }
-
-            };
+            rootFrame.Navigating += (sender, args) => EnsureContext(synchronizationContext);
+            rootFrame.Loaded += (sender, args) => EnsureContext(synchronizationContext);
 
             return synchronizationContext;
         }
